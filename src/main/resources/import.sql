@@ -1,5 +1,5 @@
-INSERT INTO db_pizzeria.pizzas(description, name, price)VALUES('Pizza_1', 'una pizza buonissima', 23);
-INSERT INTO db_pizzeria.pizzas(description, name, price)VALUES('Pizza_2', 'una pizza buonissima', 23);
-INSERT INTO db_pizzeria.pizzas(description, name, price)VALUES('Pizza_3', 'una pizza buonissima', 23);
-INSERT INTO db_pizzeria.pizzas(description, name, price)VALUES('Pizza_4', 'una pizza buonissima', 23);
+INSERT INTO db_pizzeria.pizzas(description, name, price)VALUES('una pizza buonissima 1', 'Pizza_1', 23);
+INSERT INTO db_pizzeria.pizzas(description, name, price)VALUES('una pizza buonissima 2', 'Pizza_2', 23);
+INSERT INTO db_pizzeria.pizzas(description, name, price)VALUES('una pizza buonissima 3', 'Pizza_3', 23);
+INSERT INTO db_pizzeria.pizzas(description, name, price)VALUES('una pizza buonissima 4', 'Pizza_4', 23);
 

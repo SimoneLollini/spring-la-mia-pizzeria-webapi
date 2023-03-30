@@ -13,6 +13,10 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    public Integer getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

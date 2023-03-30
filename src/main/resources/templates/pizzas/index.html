@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<div th:replace="fragments/fragments :: head"></div>
-<body>
+<th:block th:replace="/fragments/references :: head"></th:block>
+<body class="bg-secondary">
+
+<th:block th:replace="/fragments/navbar :: navbar"></th:block>
+
 <div class="container my-5" th:if="${pizzas.size()}">
-    <table class="table table-info table-striped-columns">
+    <table class="table table-dark table-striped-columns">
         <thead>
         <tr>
             <th scope="col">nome</th>
             <th scope="col">descrizione</th>
+            <th scope="col">dettaglio</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="pizza : ${pizzas}" th:object="${pizza}">
             <td th:text="*{name}"></td>
             <td th:text="*{description}"></td>
+            <td>
+                <a class="btn btn-sm btn-outline-warning" th:href="@{/pizzas/{id}(id=*{id})}">
+                    Vai al dettaglio
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
