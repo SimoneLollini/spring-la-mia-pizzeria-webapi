@@ -4,15 +4,15 @@
 <th:block th:replace="/fragments/references :: head"></th:block>
 <body class="bg-secondary">
 
-<th:block th:replace="/fragments/navbar :: navbar"></th:block>
+<th:block th:replace="/fragments/navbar :: navbar(${keyword})"></th:block>
 
 <div class="container my-5" th:if="${pizzas.size()}">
     <table class="table table-dark table-striped-columns">
         <thead>
         <tr>
-            <th scope="col">nome</th>
-            <th scope="col">descrizione</th>
-            <th scope="col">dettaglio</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Descrizione</th>
+            <th scope="col">Altro</th>
         </tr>
         </thead>
         <tbody>

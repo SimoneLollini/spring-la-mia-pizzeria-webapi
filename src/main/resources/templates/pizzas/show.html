@@ -3,7 +3,7 @@
 
 <th:block th:replace="/fragments/references :: head"></th:block>
 <body class="bg-secondary">
-<th:block th:replace="/fragments/navbar :: navbar"></th:block>
+<!--<th:block th:replace="/fragments/navbar :: navbar("keyword")"></th:block>-->
 <div class="container mt-3" th:object="${pizza}">
     <h3 th:text="*{name}"></h3>
     <p th:text="*{description}"></p>
