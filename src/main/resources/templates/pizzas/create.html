@@ -37,6 +37,17 @@
             </div>
         </div>
         <div class="mb-3">
+            <label class="form-label" for="price">Prezzo</label>
+            <input aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input" class="form-control"
+                   id="price"
+                   step="0.1" th:field="*{price}" type="number">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mb-3">
             <a class="btn btn-outline-dark" th:href="@{/pizzas}">Cancela</a>
             <button class="btn btn-outline-warning" type="submit">Aggiungi</button>
         </div>

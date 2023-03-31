@@ -1,14 +1,21 @@
 package com.example.spring_la_mia_pizzeria_crud.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "pizzas")
 public class Pizza {
-    String name;
+    @NotEmpty
+    @Size(min = 1, max = 250)
+    private String name;
     @Lob
-    String description;
-    float price;
+    private String description;
+    @Column(nullable = true)
+    @Min(value = 0, message = "Price must be greater than 0")
+    private float price;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

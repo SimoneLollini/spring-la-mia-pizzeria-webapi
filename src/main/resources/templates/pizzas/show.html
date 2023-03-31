@@ -2,11 +2,13 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <th:block th:replace="/fragments/references :: head"></th:block>
-<body class="bg-secondary">
-<!--<th:block th:replace="/fragments/navbar :: navbar("keyword")"></th:block>-->
+<body class="bg-secondary text-white">
+<th:block th:replace="/fragments/navbar :: navbar(${keyword})"></th:block>
+
 <div class="container mt-3" th:object="${pizza}">
     <h3 th:text="*{name}"></h3>
     <p th:text="*{description}"></p>
+    <p th:text="*{price}"></p>
 </div>
 </body>
 </html>

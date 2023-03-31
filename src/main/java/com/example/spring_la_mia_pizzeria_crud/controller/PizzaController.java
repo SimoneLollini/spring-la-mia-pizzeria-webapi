@@ -1,10 +1,9 @@
 package com.example.spring_la_mia_pizzeria_crud.controller;
 
 import com.example.spring_la_mia_pizzeria_crud.model.Pizza;
-import com.example.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
+import com.example.spring_la_mia_pizzeria_crud.service.PizzaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,17 +17,20 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/pizzas")
 public class PizzaController {
+//    @Autowired
+//    private PizzaRepository pizzaRepository;
+
     @Autowired
-    private PizzaRepository pizzaRepository;
+    private PizzaService pizzaService;
 
     @GetMapping
     public String index(Model model, @RequestParam(name = "q") Optional<String> keyword) {
         List<Pizza> result;
         if (keyword.isPresent()) {
-            result = pizzaRepository.findByNameContainingIgnoreCase(keyword.get());
+            result = pizzaService.getFilteredPizzasSortByName(keyword.get());
             model.addAttribute("keyword", keyword.get());
         } else {
-            result = pizzaRepository.findAll(Sort.by("name"));
+            result = pizzaService.getAllPizzasSortByName();
         }
         model.addAttribute("pizzas", result);
         return "/pizzas/index";
@@ -36,12 +38,13 @@ public class PizzaController {
 
     @GetMapping("/{pizzaId}")
     public String show(@PathVariable("pizzaId") Integer id, Model model) {
-        Optional<Pizza> result = pizzaRepository.findById(id);
-        if (result.isPresent()) {
-            model.addAttribute("pizza", result.get());
+        try {
+            Pizza pizza = pizzaService.getById(id);
+            model.addAttribute(pizza);
+            model.addAttribute("keyword", "");
             return "/pizzas/show";
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza not found");
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza non trovata!");
         }
     }
 
@@ -60,7 +63,8 @@ public class PizzaController {
         if (bindingResult.hasErrors())
             return "/pizzas/create";
 
-        pizzaRepository.save(formPizza);
+
+        pizzaService.createPizza(formPizza);
         return "redirect:/pizzas";
 
     }

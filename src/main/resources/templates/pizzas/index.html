@@ -12,6 +12,7 @@
         <tr>
             <th scope="col">Nome</th>
             <th scope="col">Descrizione</th>
+            <th scope="col">Prezzo</th>
             <th scope="col">Altro</th>
         </tr>
         </thead>
@@ -19,6 +20,7 @@
         <tr th:each="pizza : ${pizzas}" th:object="${pizza}">
             <td th:text="*{name}"></td>
             <td th:text="*{description}"></td>
+            <td th:text="*{price}"></td>
             <td>
                 <a class="btn btn-sm btn-outline-warning" th:href="@{/pizzas/{id}(id=*{id})}">
                     Vai al dettaglio
