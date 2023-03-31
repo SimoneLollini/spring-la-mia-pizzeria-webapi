@@ -8,7 +8,7 @@
 <div class="container my-4 text-white">
     <h2 class="mb-3">Aggiungi una nuova pizza!</h2>
     <form id="pizza-id" method="post" th:action="@{/pizzas/create}" th:object="${pizza}">
-        <ul>
+        <ul class="text-danger">
             <li
                     th:each="err : ${#fields.allErrors()}"
                     th:text="${err}">
@@ -16,11 +16,13 @@
         </ul>
         <div class="mb-3">
             <label class="form-label" for="name">Nome</label>
-            <input aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input" class="form-control"
+            <input aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input"
+                   class="form-control "
                    id="name"
+                   th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
                    th:field="*{name}" type="text">
             <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
-                <ul>
+                <ul class="text-danger">
                     <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
                 </ul>
             </div>
@@ -29,20 +31,23 @@
             <label class="form-label" for="description">Descrizione</label>
             <input aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input"
                    class="form-control" id="description"
+                   th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}"
                    th:field="*{description}" type="text">
             <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
-                <ul>
+                <ul class="text-danger">
                     <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
                 </ul>
             </div>
         </div>
         <div class="mb-3">
             <label class="form-label" for="price">Prezzo</label>
-            <input aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input" class="form-control"
+            <input aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input"
+                   class="form-control"
                    id="price"
-                   step="0.1" th:field="*{price}" type="number">
+                   step="0.1"
+                   th:classappend="${#fields.hasErrors('price') ? 'is-invalid' : ''}" th:field="*{price}" type="number">
             <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}">
-                <ul>
+                <ul class="text-danger">
                     <li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
                 </ul>
             </div>
