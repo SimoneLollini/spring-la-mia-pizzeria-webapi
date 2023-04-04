@@ -59,13 +59,13 @@ public class PizzaController {
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors())
             return "/pizzas/create";
 
-
         pizzaService.createPizza(formPizza);
+        redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Pizza aggiunta con successo!"));
         return "redirect:/pizzas";
 
     }
@@ -82,13 +82,14 @@ public class PizzaController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors())
             return "/pizzas/edit";
 
         try {
             Pizza updatedPizza = pizzaService.updatePizza(formPizza, id);
+            redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Pizza modificata con successo!"));
             return "redirect:/pizzas";
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza non trovata");
