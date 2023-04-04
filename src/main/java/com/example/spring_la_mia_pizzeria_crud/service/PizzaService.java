@@ -47,4 +47,22 @@ public class PizzaService {
         return pizzaRepository.save(pizzaToUpdate);
     }
 
+    //public boolean deleteById(Integer id) throws BookNotFoundException {
+//    bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(Integer.toString(id)));
+//    try {
+//      bookRepository.deleteById(id);
+//      return true;
+//    } catch (Exception e) {
+//      return false;
+//    }
+//  }
+    public boolean deleteById(Integer id) throws RuntimeException {
+        try {
+            pizzaRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

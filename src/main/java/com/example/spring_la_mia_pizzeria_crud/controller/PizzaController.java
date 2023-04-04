@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,8 +45,7 @@ public class PizzaController {
             model.addAttribute("keyword", "");
             return "/pizzas/show";
         } catch (RuntimeException e) {
-//            e.printStackTrace();
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza non trovata!", e);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza non trovata!");
         }
     }
 
@@ -82,8 +82,7 @@ public class PizzaController {
 
     @PostMapping("/edit/{id}")
     public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
-
-
+        
         if (bindingResult.hasErrors())
             return "/pizzas/edit";
 
@@ -94,4 +93,21 @@ public class PizzaController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza non trovata");
         }
     }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            boolean success = pizzaService.deleteById(id);
+            if (success)
+                redirectAttributes.addFlashAttribute("message", "Pizza eliminata");
+            else {
+                redirectAttributes.addFlashAttribute("message", "Operazione fallita");
+            }
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("message",
+                    "Pizza non trovata");
+        }
+        return "redirect:/pizzas";
+    }
+
 }
