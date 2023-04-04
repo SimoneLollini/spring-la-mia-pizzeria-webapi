@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<body>
+<th:block th:fragment="alertMessage(message)" th:if="${message}">
+    <div class="alert alert-dismissible fade show alert-success"
+         th:classAppend="${#strings.equals(message.type, 'SUCCESS')} ? alert-success : alert-danger">
+        <div th:text="${message.text}"></div>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
+    </div>
+</th:block>
+</body>
+</html>

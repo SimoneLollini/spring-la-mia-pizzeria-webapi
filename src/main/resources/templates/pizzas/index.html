@@ -8,13 +8,7 @@
 
 
 <div class="container my-5">
-    <th:block th:if="${message}">
-        <div class="alert alert-dismissible fade show alert-success"
-             th:classAppend="${#strings.equals(message.type, 'SUCCESS')} ? alert-success : alert-danger">
-            <div th:text="${message.text}"></div>
-            <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
-        </div>
-    </th:block>
+    <th:block th:replace="/fragments/alert_message :: alertMessage(${message})"></th:block>
     <th:block th:if="${pizzas.size()}">
         <table class="table table-dark table-striped-columns">
             <thead>
