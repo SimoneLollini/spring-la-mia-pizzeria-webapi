@@ -44,7 +44,8 @@ public class PizzaController {
             model.addAttribute("keyword", "");
             return "/pizzas/show";
         } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza non trovata!");
+//            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza non trovata!", e);
         }
     }
 
@@ -56,7 +57,6 @@ public class PizzaController {
 
     }
 
-
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
 
@@ -67,5 +67,31 @@ public class PizzaController {
         pizzaService.createPizza(formPizza);
         return "redirect:/pizzas";
 
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        try {
+            Pizza pizza = pizzaService.getById(id);
+            model.addAttribute("pizza", pizza);
+            return "/pizzas/edit";
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza non trovata");
+        }
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+
+
+        if (bindingResult.hasErrors())
+            return "/pizzas/edit";
+
+        try {
+            Pizza updatedPizza = pizzaService.updatePizza(formPizza, id);
+            return "redirect:/pizzas";
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza non trovata");
+        }
     }
 }

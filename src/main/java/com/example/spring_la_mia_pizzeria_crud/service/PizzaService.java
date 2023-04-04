@@ -31,11 +31,20 @@ public class PizzaService {
         }
     }
 
-    public void createPizza(Pizza formPizza) {
+    public Pizza createPizza(Pizza formPizza) {
         Pizza newPizza = new Pizza();
         newPizza.setName(formPizza.getName());
         newPizza.setDescription(formPizza.getDescription());
         newPizza.setPrice(formPizza.getPrice());
-        pizzaRepository.save(newPizza);
+        return pizzaRepository.save(newPizza);
     }
+
+    public Pizza updatePizza(Pizza formPizza, Integer id) throws RuntimeException {
+        Pizza pizzaToUpdate = getById(id);
+        pizzaToUpdate.setName(formPizza.getName());
+        pizzaToUpdate.setDescription(formPizza.getDescription());
+        pizzaToUpdate.setPrice(formPizza.getPrice());
+        return pizzaRepository.save(pizzaToUpdate);
+    }
+
 }

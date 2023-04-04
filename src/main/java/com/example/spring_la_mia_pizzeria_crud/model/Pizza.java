@@ -2,14 +2,13 @@ package com.example.spring_la_mia_pizzeria_crud.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "pizzas")
 public class Pizza {
-    @NotEmpty
     @Size(min = 1, max = 250)
+    @Column(nullable = false)
     private String name;
     @Lob
     private String description;

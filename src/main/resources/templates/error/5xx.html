@@ -4,6 +4,10 @@
 <div th:replace="fragments/references :: head"></div>
 <body>
 Errore di tipo 5xx
-
+<div th:if="${exception}">
+    <!-- only in dev mode -->
+    <p th:text="${exception}"></p>
+    <p th:text="${trace}"></p>
+</div>
 </body>
 </html>

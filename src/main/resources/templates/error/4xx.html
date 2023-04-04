@@ -3,7 +3,13 @@
 
 <th:block th:replace="/fragments/references :: head"></th:block>
 <body>
-Errore di tipo 4xx
+<th:block th:replace="/fragments/navbar :: navbar('')"></th:block>
 
+Errore di tipo 4xx
+<div th:if="${exception}">
+    <!-- only in dev mode -->
+    <p th:text="${exception}"></p>
+    <p th:text="${trace}"></p>
+</div>
 </body>
 </html>
