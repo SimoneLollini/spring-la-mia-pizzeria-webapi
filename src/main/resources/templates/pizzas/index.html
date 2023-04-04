@@ -9,7 +9,8 @@
 
 <div class="container my-5">
     <th:block th:if="${message}">
-        <div class="alert alert-dismissible fade show alert-success">
+        <div class="alert alert-dismissible fade show alert-success"
+             th:classAppend="${#strings.equals(message.type, 'SUCCESS')} ? alert-success : alert-danger">
             <div th:text="${message.text}"></div>
             <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
         </div>
