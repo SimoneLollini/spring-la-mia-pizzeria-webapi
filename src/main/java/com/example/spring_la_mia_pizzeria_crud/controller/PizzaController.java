@@ -1,5 +1,6 @@
 package com.example.spring_la_mia_pizzeria_crud.controller;
 
+import com.example.spring_la_mia_pizzeria_crud.model.AlertMessage;
 import com.example.spring_la_mia_pizzeria_crud.model.Pizza;
 import com.example.spring_la_mia_pizzeria_crud.service.PizzaService;
 import jakarta.validation.Valid;
@@ -82,7 +83,7 @@ public class PizzaController {
 
     @PostMapping("/edit/{id}")
     public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
-        
+
         if (bindingResult.hasErrors())
             return "/pizzas/edit";
 
@@ -99,13 +100,13 @@ public class PizzaController {
         try {
             boolean success = pizzaService.deleteById(id);
             if (success)
-                redirectAttributes.addFlashAttribute("message", "Pizza eliminata");
+                redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Pizza eliminata con successo."));
             else {
-                redirectAttributes.addFlashAttribute("message", "Operazione fallita");
+                redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Non puoi eliminare!"));
             }
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("message",
-                    "Pizza non trovata");
+                    new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Pizza non trovata!"));
         }
         return "redirect:/pizzas";
     }
