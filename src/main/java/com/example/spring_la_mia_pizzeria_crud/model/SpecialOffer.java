@@ -30,7 +30,7 @@ public class SpecialOffer {
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -46,7 +46,7 @@ public class SpecialOffer {
     }
 
     public LocalDate getEndDate() {
-        return endDate;
+        return this.endDate;
     }
 
     public void setEndDate(LocalDate endDate) {

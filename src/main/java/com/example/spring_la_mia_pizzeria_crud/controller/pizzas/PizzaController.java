@@ -1,4 +1,4 @@
-package com.example.spring_la_mia_pizzeria_crud.controller;
+package com.example.spring_la_mia_pizzeria_crud.controller.pizzas;
 
 import com.example.spring_la_mia_pizzeria_crud.model.AlertMessage;
 import com.example.spring_la_mia_pizzeria_crud.model.Pizza;
