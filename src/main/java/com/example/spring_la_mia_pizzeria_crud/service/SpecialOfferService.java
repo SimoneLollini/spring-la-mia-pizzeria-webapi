@@ -37,11 +37,12 @@ public class SpecialOfferService {
     }
 
     public SpecialOffer updateSpecialOffer(SpecialOffer formSpecialOffer, Integer id) throws RuntimeException {
-        SpecialOffer pizzaToUpdate = getById(id);
-        pizzaToUpdate.setEndDate(formSpecialOffer.getEndDate());
-        pizzaToUpdate.setStartDate(formSpecialOffer.getStartDate());
-        pizzaToUpdate.setPizza(formSpecialOffer.getPizza());
-        return specialOfferRepository.save(pizzaToUpdate);
+        SpecialOffer offerToUpdate = getById(id);
+        offerToUpdate.setTitle(formSpecialOffer.getTitle());
+        offerToUpdate.setEndDate(formSpecialOffer.getEndDate());
+        offerToUpdate.setStartDate(formSpecialOffer.getStartDate());
+        offerToUpdate.setPizza(formSpecialOffer.getPizza());
+        return specialOfferRepository.save(offerToUpdate);
     }
 
     public boolean deleteById(Integer id) throws RuntimeException {

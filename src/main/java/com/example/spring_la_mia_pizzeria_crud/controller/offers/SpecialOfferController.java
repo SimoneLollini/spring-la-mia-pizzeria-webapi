@@ -74,17 +74,17 @@ public class SpecialOfferController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("offer") SpecialOffer formOffer, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors())
             return "/offers/edit";
 
         try {
-            Pizza updatedPizza = pizzaService.updatePizza(formPizza, id);
-            redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Pizza modificata con successo!"));
+            SpecialOffer updatedOffer = specialOfferService.updateSpecialOffer(formOffer, id);
+            redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Offerta modificata con successo!"));
             return "redirect:/offers";
         } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza non trovata");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "offer non trovata");
         }
     }
 }
