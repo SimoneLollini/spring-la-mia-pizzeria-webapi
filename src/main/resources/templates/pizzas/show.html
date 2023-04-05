@@ -9,6 +9,25 @@
     <h3 th:text="*{name}"></h3>
     <p th:text="*{description}"></p>
     <p th:text="*{price}"></p>
+    <div class="pb-2">Offerte: <span th:text="*{specialOffers.size()}"></span></div>
+    <div class="badge bg-success text-bg-success" th:each="offer : *{specialOffers}" th:object="${offer}">
+        <div th:text="*{title}"></div>
+    </div>
 </div>
+
+<!--
+La pagina di dettaglio della singola pizza mostrerà l’elenco delle offerte
+collegate e avrà un bottone “Crea nuova offerta speciale”
+per aggiungerne una nuova.
+Accanto a ogni offerta speciale è previsto un bottone che mi porterà a una pagina per modificarla.
+-->
+
+<!-- <tr th:each="borrowing : *{borrowings}" th:object="${borrowing}">
+      <td th:text="${#temporals.format(borrowing.borrowingDate, 'dd/MM/yyyy')}"></td>-->
+
+
+<!--<div th:each="${pizza.specialOffers}" th:if="${pizza.specialOffers}">-->
+
+<!--</div>-->
 </body>
 </html>
