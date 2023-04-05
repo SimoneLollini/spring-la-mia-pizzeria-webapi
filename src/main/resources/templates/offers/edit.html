@@ -6,8 +6,8 @@
 <body class="bg-secondary">
 <th:block th:replace="/fragments/navbar :: navbar(${keyword})"></th:block>
 <div class="container my-4 text-white">
-    <h2 class="mb-3">Modifica pizza!</h2>
-    <form id="pizza-id" method="post" th:action="@{/pizzas/edit/{id}(id=*{id})}" th:object="${pizza}">
+    <h2 class="mb-3">Modifica offerta!</h2>
+    <form method="post" th:action="@{/offers/edit/{id}(id=*{id})}" th:object="${specialOffer}">
         <ul class="text-danger">
             <li
                     th:each="err : ${#fields.allErrors()}"
@@ -15,45 +15,44 @@
             </li>
         </ul>
         <div class="mb-3">
-            <label class="form-label" for="name">Nome</label>
+            <label class="form-label" for="title">Titolo</label>
             <input aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input"
                    class="form-control "
-                   id="name"
-                   th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
-                   th:field="*{name}" type="text">
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+                   id="title"
+                   th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}"
+                   th:field="*{title}" type="text">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
                 <ul class="text-danger">
-                    <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                    <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
                 </ul>
             </div>
         </div>
         <div class="mb-3">
-            <label class="form-label" for="description">Descrizione</label>
+            <label class="form-label" for="startDate">Data inizio</label>
             <input aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input"
-                   class="form-control" id="description"
-                   th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}"
-                   th:field="*{description}" type="text">
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                   class="form-control" id="startDate"
+                   th:classappend="${#fields.hasErrors('startDate') ? 'is-invalid' : ''}"
+                   th:field="*{startDate}" type="text">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}">
                 <ul class="text-danger">
-                    <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                    <li th:each="err : ${#fields.errors('startDate')}" th:text="${err}"></li>
                 </ul>
             </div>
         </div>
         <div class="mb-3">
-            <label class="form-label" for="price">Prezzo</label>
+            <label class="form-label" for="endDate">Data fine</label>
             <input aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input"
-                   class="form-control"
-                   id="price"
-                   step="0.1"
-                   th:classappend="${#fields.hasErrors('price') ? 'is-invalid' : ''}" th:field="*{price}" type="number">
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}">
+                   class="form-control" id="endDate"
+                   th:classappend="${#fields.hasErrors('endDate') ? 'is-invalid' : ''}"
+                   th:field="*{endDate}" type="text">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('endDate')}">
                 <ul class="text-danger">
-                    <li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
+                    <li th:each="err : ${#fields.errors('endDate')}" th:text="${err}"></li>
                 </ul>
             </div>
         </div>
         <div class="mb-3">
-            <a class="btn btn-outline-dark" th:href="@{/pizzas}">Cancela</a>
+            <a class="btn btn-outline-dark" th:href="@{/offers}">Cancela</a>
             <button class="btn btn-outline-warning" type="submit">Modifica</button>
         </div>
     </form>

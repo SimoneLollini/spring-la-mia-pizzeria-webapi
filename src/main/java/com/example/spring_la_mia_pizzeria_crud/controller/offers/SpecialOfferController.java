@@ -37,15 +37,6 @@ public class SpecialOfferController {
 
     @GetMapping("/create")
     public String create(@RequestParam(name = "pizza_id") Integer id, Model model) {
-
-//        if (id.isPresent()) {
-//            try {
-//                Book book = bookService.getById(id.get());
-//                borrowing.setBook(book);
-//            } catch (BookNotFoundException e) {
-//                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//            }
-//        }
         SpecialOffer specialOffer = new SpecialOffer();
         try {
             Pizza pizza = pizzaService.getById(id);
@@ -68,5 +59,32 @@ public class SpecialOfferController {
         redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Offerta aggiunta con successo!"));
         return "redirect:/offers";
 
+    }
+
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        try {
+            SpecialOffer specialOffer = specialOfferService.getById(id);
+            model.addAttribute("specialOffer", specialOffer);
+            return "/offers/edit";
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "offerta non trovata");
+        }
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors())
+            return "/offers/edit";
+
+        try {
+            Pizza updatedPizza = pizzaService.updatePizza(formPizza, id);
+            redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Pizza modificata con successo!"));
+            return "redirect:/offers";
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza non trovata");
+        }
     }
 }
