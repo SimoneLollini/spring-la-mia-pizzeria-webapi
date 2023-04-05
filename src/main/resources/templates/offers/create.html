@@ -27,6 +27,26 @@
                     <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
                 </ul>
             </div>
+            <div class="mb-3 col-6">
+                <label class="form-label" for="startDate">Data inizio</label>
+                <input class="form-control" id="startDate" th:errorClass="is-invalid" th:field="*{startDate}"
+                       type="date">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('startDate')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3 col-6">
+                <label class="form-label" for="endDate">Data fine</label>
+                <input class="form-control" id="endDate" th:errorClass="is-invalid" th:field="*{endDate}"
+                       type="date">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('endDate')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('endDate')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
             <input hidden th:field="*{pizza}">
         </div>
         <div class="mb-3">

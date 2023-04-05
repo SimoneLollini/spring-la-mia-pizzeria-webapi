@@ -13,10 +13,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a aria-current="page" class="nav-link active" th:href="@{/pizzas}">Torna al menu</a>
+                        <a aria-current="page" class="nav-link active" th:href="@{/pizzas}">Lista pizze</a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active" th:href="@{/offers}">Lista offerte</a>
                     </li>
                     <li class="ms-2">
-                        <a th:href="@{/pizzas/create}"><strong class="btn btn-outline-warning">+</strong></a>
+                        <a th:href="@{/pizzas/create}"><strong class="btn btn-outline-warning">Aggiungi pizza +</strong></a>
                     </li>
                 </ul>
                 <form class="d-flex" method="get" role="search" th:action="@{/pizzas}">

@@ -41,7 +41,6 @@ public class SpecialOfferService {
         offerToUpdate.setTitle(formSpecialOffer.getTitle());
         offerToUpdate.setEndDate(formSpecialOffer.getEndDate());
         offerToUpdate.setStartDate(formSpecialOffer.getStartDate());
-        offerToUpdate.setPizza(formSpecialOffer.getPizza());
         return specialOfferRepository.save(offerToUpdate);
     }
 
