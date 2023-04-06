@@ -29,6 +29,7 @@ public class PizzaController {
     @Autowired
     private IngredientService ingredientService;
 
+
     @GetMapping
     public String index(Model model, @RequestParam(name = "q") Optional<String> keyword) {
         List<Pizza> result;
@@ -81,6 +82,8 @@ public class PizzaController {
         try {
             Pizza pizza = pizzaService.getById(id);
             model.addAttribute("pizza", pizza);
+            List<Ingredient> ingredientList = ingredientService.getAllIngredients();
+            model.addAttribute("ingredientList", ingredientList);
             return "/pizzas/edit";
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza non trovata");
