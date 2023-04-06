@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "pizzas")
@@ -22,6 +23,22 @@ public class Pizza {
     private Integer id;
     @OneToMany(mappedBy = "pizza")
     private List<SpecialOffer> specialOffers;
+
+    @ManyToMany
+    @JoinTable(
+            name = "ingredient_pizza",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    private Set<Ingredient> ingredients;
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public Integer getId() {
         return id;

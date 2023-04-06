@@ -1,7 +1,9 @@
 package com.example.spring_la_mia_pizzeria_crud.controller.pizzas;
 
 import com.example.spring_la_mia_pizzeria_crud.model.AlertMessage;
+import com.example.spring_la_mia_pizzeria_crud.model.Ingredient;
 import com.example.spring_la_mia_pizzeria_crud.model.Pizza;
+import com.example.spring_la_mia_pizzeria_crud.service.IngredientService;
 import com.example.spring_la_mia_pizzeria_crud.service.PizzaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ public class PizzaController {
 
     @Autowired
     private PizzaService pizzaService;
+    private IngredientService ingredientService;
 
     @GetMapping
     public String index(Model model, @RequestParam(name = "q") Optional<String> keyword) {
@@ -53,7 +56,9 @@ public class PizzaController {
 
     @GetMapping("/create")
     public String create(Model model) {
+        List<Ingredient> ingredientList = ingredientService.getAllIngredients();
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredientList", ingredientList);
         return "/pizzas/create";
 
     }

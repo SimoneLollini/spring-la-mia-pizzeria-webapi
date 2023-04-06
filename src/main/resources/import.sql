@@ -10,5 +10,9 @@ INSERT INTO db_pizzeria.special_offer(end_date, start_date, title, pizza_id)VALU
 INSERT INTO db_pizzeria.special_offer(end_date, start_date, title, pizza_id)VALUES('2023-03-06', '2023-03-07', 'offerta 6', 3);
 INSERT INTO db_pizzeria.special_offer(end_date, start_date, title, pizza_id)VALUES('2023-03-07', '2023-03-08', 'offerta 7', 4);
 INSERT INTO db_pizzeria.special_offer(end_date, start_date, title, pizza_id)VALUES('2023-03-08', '2023-03-09', 'offerta 8', 4);
-
+INSERT INTO db_pizzeria.ingredients(description, name)VALUES('descrizione ingrediente bella', 'ingrediente 1');
+INSERT INTO db_pizzeria.ingredients(description, name)VALUES('descrizione ingrediente bella', 'ingrediente 2');
+INSERT INTO db_pizzeria.ingredients(description, name)VALUES('descrizione ingrediente bella', 'ingrediente 3');
+INSERT INTO db_pizzeria.ingredients(description, name)VALUES('descrizione ingrediente bella', 'ingrediente 4');
+INSERT INTO db_pizzeria.ingredients(description, name)VALUES('descrizione ingrediente bella', 'ingrediente 5');
 

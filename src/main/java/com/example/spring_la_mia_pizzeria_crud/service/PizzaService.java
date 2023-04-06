@@ -46,7 +46,7 @@ public class PizzaService {
         pizzaToUpdate.setPrice(formPizza.getPrice());
         return pizzaRepository.save(pizzaToUpdate);
     }
-    
+
     public boolean deleteById(Integer id) throws RuntimeException {
         try {
             pizzaRepository.deleteById(id);
