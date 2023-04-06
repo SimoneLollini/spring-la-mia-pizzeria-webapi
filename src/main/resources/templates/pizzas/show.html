@@ -13,8 +13,14 @@
     <div class="badge bg-success text-bg-success" th:each="offer : *{specialOffers}" th:object="${offer}">
         <div th:text="*{title}"></div>
     </div>
-    <a th:href="@{/offers/create(pizza_id=${pizza.id})}"><strong class="btn btn-sm btn-outline-warning">Aggiungi
-        offerta</strong></a>
+    <a th:href="@{/offers/create(pizza_id=${pizza.id})}">
+        <strong class="btn btn-sm btn-outline-warning">
+            Aggiungi offerta
+        </strong>
+    </a>
+    <h4>Ingredienti: </h4>
+    <span th:each="ingredient : *{ingredients}" th:text="${ingredient.name} + ' '">
+    </span>
 </div>
 
 <!--

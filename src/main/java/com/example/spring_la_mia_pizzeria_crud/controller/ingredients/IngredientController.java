@@ -1,10 +1,8 @@
-package com.example.spring_la_mia_pizzeria_crud.controller.pizzas;
+package com.example.spring_la_mia_pizzeria_crud.controller.ingredients;
 
 import com.example.spring_la_mia_pizzeria_crud.model.AlertMessage;
 import com.example.spring_la_mia_pizzeria_crud.model.Ingredient;
-import com.example.spring_la_mia_pizzeria_crud.model.Pizza;
 import com.example.spring_la_mia_pizzeria_crud.service.IngredientService;
-import com.example.spring_la_mia_pizzeria_crud.service.PizzaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,109 +14,98 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
-@RequestMapping("/pizzas")
-public class PizzaController {
-//    @Autowired
-//    private PizzaRepository pizzaRepository;
+@RequestMapping("/ingredients")
+public class IngredientController {
 
-    @Autowired
-    private PizzaService pizzaService;
     @Autowired
     private IngredientService ingredientService;
 
 
     @GetMapping
-    public String index(Model model, @RequestParam(name = "q") Optional<String> keyword) {
-        List<Pizza> result;
-        if (keyword.isPresent()) {
-            result = pizzaService.getFilteredPizzasSortByName(keyword.get());
-            model.addAttribute("keyword", keyword.get());
-        } else {
-            result = pizzaService.getAllPizzasSortByName();
-        }
-        model.addAttribute("pizzas", result);
-        return "/pizzas/index";
+    public String index(Model model) {
+        List<Ingredient> result;
+
+        result = ingredientService.getAllIngredients();
+        model.addAttribute("ingredientList", result);
+        return "/ingredients/index";
     }
 
-    @GetMapping("/{pizzaId}")
-    public String show(@PathVariable("pizzaId") Integer id, Model model) {
+    @GetMapping("/{ingredientId}")
+    public String show(@PathVariable("ingredientId") Integer id, Model model) {
         try {
-            Pizza pizza = pizzaService.getById(id);
-            model.addAttribute(pizza);
+            Ingredient ingredient = ingredientService.getById(id);
+            model.addAttribute(ingredient);
             model.addAttribute("keyword", "");
-            return "/pizzas/show";
+            return "/ingredients/show";
         } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza non trovata!");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Ingredient non trovata!");
         }
     }
 
 
     @GetMapping("/create")
     public String create(Model model) {
-        List<Ingredient> ingredientList = ingredientService.getAllIngredients();
-        model.addAttribute("pizza", new Pizza());
-        model.addAttribute("ingredientList", ingredientList);
-        return "/pizzas/create";
+        model.addAttribute("ingredient", new Ingredient());
+        return "/ingredients/create";
 
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    public String store(@Valid @ModelAttribute("ingredient") Ingredient formIngredient, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors())
-            return "/pizzas/create";
+            return "/ingredients/create";
 
-        pizzaService.createPizza(formPizza);
-        redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Pizza aggiunta con successo!"));
-        return "redirect:/pizzas";
+        ingredientService.createIngredient(formIngredient);
+        redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Ingredient aggiunta con successo!"));
+        return "redirect:/ingredients";
 
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
         try {
-            Pizza pizza = pizzaService.getById(id);
-            model.addAttribute("pizza", pizza);
+            Ingredient ingredient = ingredientService.getById(id);
+            model.addAttribute("ingredient", ingredient);
             List<Ingredient> ingredientList = ingredientService.getAllIngredients();
             model.addAttribute("ingredientList", ingredientList);
-            return "/pizzas/edit";
+            return "/ingredients/edit";
         } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza non trovata");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ingredient non trovata");
         }
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String update(@PathVariable("id") Integer id, @Valid @ModelAttribute("ingredient") Ingredient formIngredient, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors())
-            return "/pizzas/edit";
+            return "/ingredients/edit";
 
         try {
-            Pizza updatedPizza = pizzaService.updatePizza(formPizza, id);
-            redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Pizza modificata con successo!"));
-            return "redirect:/pizzas";
+            Ingredient updatedIngredient = ingredientService.updateIngredient(formIngredient, id);
+            redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Ingredient modificata con successo!"));
+            return "redirect:/ingredients";
         } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza non trovata");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ingredient non trovata");
         }
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
         try {
-            boolean success = pizzaService.deleteById(id);
+            boolean success = ingredientService.deleteById(id);
             if (success)
-                redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Pizza eliminata con successo."));
+                redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.SUCCESS, "Ingredient eliminata con successo."));
             else {
                 redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Non puoi eliminare!"));
             }
         } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("message",
-                    new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Pizza non trovata!"));
+                    new AlertMessage(AlertMessage.AlertMessageType.ERROR, "Ingredient non trovata!"));
         }
-        return "redirect:/pizzas";
+        return "redirect:/ingredients";
     }
 
 }

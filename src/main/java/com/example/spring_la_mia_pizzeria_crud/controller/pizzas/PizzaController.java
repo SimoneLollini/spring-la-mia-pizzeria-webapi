@@ -21,9 +21,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/pizzas")
 public class PizzaController {
-//    @Autowired
-//    private PizzaRepository pizzaRepository;
-
     @Autowired
     private PizzaService pizzaService;
     @Autowired
@@ -49,6 +46,8 @@ public class PizzaController {
             Pizza pizza = pizzaService.getById(id);
             model.addAttribute(pizza);
             model.addAttribute("keyword", "");
+//            List<Ingredient> ingredientList = pizza.getIngredients();
+//            model.addAttribute("ingredientList", ingredientList);
             return "/pizzas/show";
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza non trovata!");
