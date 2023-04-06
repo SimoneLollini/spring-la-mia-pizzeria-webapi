@@ -51,6 +51,13 @@
                     <li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
                 </ul>
             </div>
+            <div class="mb-3 p-5">
+                <div class="input_wrapper" th:each="ingredient :${ingredientList}">
+                    <input th:field="*{ingredients}" th:id="|ingredient_${ingredient.id}|" th:value="${ingredient.id}"
+                           type="checkbox">
+                    <label th:for="${ingredient.id}" th:text="${ingredient.name}"></label>
+                </div>
+            </div>
         </div>
         <div class="mb-3">
             <a class="btn btn-outline-dark" th:href="@{/pizzas}">Cancela</a>

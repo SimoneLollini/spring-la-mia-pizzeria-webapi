@@ -26,6 +26,7 @@ public class PizzaController {
 
     @Autowired
     private PizzaService pizzaService;
+    @Autowired
     private IngredientService ingredientService;
 
     @GetMapping

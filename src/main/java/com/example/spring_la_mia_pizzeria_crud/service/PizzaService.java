@@ -36,6 +36,7 @@ public class PizzaService {
         newPizza.setName(formPizza.getName());
         newPizza.setDescription(formPizza.getDescription());
         newPizza.setPrice(formPizza.getPrice());
+        newPizza.setIngredients(formPizza.getIngredients());
         return pizzaRepository.save(newPizza);
     }
 
@@ -44,6 +45,7 @@ public class PizzaService {
         pizzaToUpdate.setName(formPizza.getName());
         pizzaToUpdate.setDescription(formPizza.getDescription());
         pizzaToUpdate.setPrice(formPizza.getPrice());
+        pizzaToUpdate.setIngredients(formPizza.getIngredients());
         return pizzaRepository.save(pizzaToUpdate);
     }
 
