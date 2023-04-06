@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<th:block th:replace="/fragments/references :: head"></th:block>
+<body class="bg-secondary">
+<th:block th:replace="/fragments/navbar :: navbar(${keyword})"></th:block>
+<div class="container my-4 text-white">
+    <h2 class="mb-3">Modifica offerta!</h2>
+    <form method="post" th:action="@{/offers/edit/{id}(id=*{id})}" th:object="${specialOffer}">
+        <ul class="text-danger">
+            <li
+                    th:each="err : ${#fields.allErrors()}"
+                    th:text="${err}">
+            </li>
+        </ul>
+        <div class="mb-3">
+            <label class="form-label" for="title">Titolo</label>
+            <input aria-describedby="inputGroup-sizing-default" aria-label="Sizing example input"
+                   class="form-control "
+                   id="title"
+                   th:classappend="${#fields.hasErrors('title') ? 'is-invalid' : ''}"
+                   th:field="*{title}" type="text">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}">
+                <ul class="text-danger">
+                    <li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="mb-3 col-6">
+                <label class="form-label" for="startDate">Data inizio</label>
+                <input class="form-control" id="startDate" th:errorClass="is-invalid" th:field="*{startDate}"
+                       type="date">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('startDate')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-3 col-6">
+                <label class="form-label" for="endDate">Data fine</label>
+                <input class="form-control" id="endDate" th:errorClass="is-invalid" th:field="*{endDate}"
+                       type="date">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('endDate')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('endDate')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <a class="btn btn-outline-dark" th:href="@{/offers}">Cancela</a>
+            <button class="btn btn-outline-warning" type="submit">Modifica</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
