@@ -15,4 +15,5 @@ INSERT INTO db_pizzeria.ingredients(description, name)VALUES('descrizione ingred
 INSERT INTO db_pizzeria.ingredients(description, name)VALUES('descrizione ingrediente bella', 'ingrediente 3');
 INSERT INTO db_pizzeria.ingredients(description, name)VALUES('descrizione ingrediente bella', 'ingrediente 4');
 INSERT INTO db_pizzeria.ingredients(description, name)VALUES('descrizione ingrediente bella', 'ingrediente 5');
+INSERT INTO db_pizzeria.`user`(id, password, username)VALUES(1, '{noop}password', 'username');
 
