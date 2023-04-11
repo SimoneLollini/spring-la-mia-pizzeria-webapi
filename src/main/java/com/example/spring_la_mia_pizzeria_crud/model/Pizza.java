@@ -1,5 +1,6 @@
 package com.example.spring_la_mia_pizzeria_crud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
@@ -21,6 +22,7 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @OneToMany(mappedBy = "pizza")
+    @JsonIgnore
     private List<SpecialOffer> specialOffers;
 
     @ManyToMany
