@@ -23,6 +23,8 @@ public class SecurityConfiguration {
                 .requestMatchers("/pizzas").permitAll()
                 .requestMatchers("/webjars/**").permitAll()//autorizzo tutta la cartella
                 .requestMatchers("/pizzas/create", "/pizzas/edit").hasAuthority("ADMIN")
+                .requestMatchers("/**").hasAuthority("ADMIN")
+                .requestMatchers("/pizzas").hasAuthority("USER")
                 .requestMatchers("/api/**").permitAll()
                 .requestMatchers("/").permitAll()
                 .and().formLogin()
