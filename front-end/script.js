@@ -9,22 +9,28 @@ const getPizzaList = async () => {
     return response;
 };
 
+// createDeleteBtn = async () => {
+//     let btn = "";
+//     btn = `<button class="btn btn-danger">Elimina</button>`;
+//     return btn;
+// }
+
 const createPizza = (pizza) => {
     return `<div class="col-4">
               <div class="card h-100">
                   <div class="card-body">
                       <h5 class="card-title">${pizza.name}</h5>
-                      <h6 class="card-subtitle mb-2 text-body-secondary">${pizza.description}</h6>
+                      <h6 class="card-subtitle mb-2 text-body-secondary">${pizza.price}</h6>
                       <p class="card-text d-flex justify-content-between">
-                          <span>${pizza.price}</span>
+                         ${pizza.description}
                       </p>
+                      <button data-id="${pizza.id}" class="btn btn-danger">Elimina</button>
                   </div>
               </div>
       </div>`;
 };
 
 const buildPizzaCols = (array) => {
-    console.log(array)
     let pizzaList = `<div class="row gy-3">`;
     array.forEach((pizza) => {
         pizzaList += createPizza(pizza);
@@ -39,6 +45,12 @@ const loadData = async () => {
     if (response.ok) {
         const data = await response.json();
         contentElement.innerHTML = buildPizzaCols(data);
+        const deleteBtns = document.querySelectorAll('button[data-id]');
+        for (let btn of deleteBtns) {
+            btn.addEventListener('click', () => {
+                deletePizza(btn.dataset.id);
+            });
+        }
     } else {
         console.log('ERROR');
     }
@@ -74,6 +86,21 @@ const savePizza = async (event) => {
         console.log('ERROR');
         console.log(response.status);
         console.log(responseBody);
+    }
+};
+
+const deletePizzaById = async (pizzaId) => {
+    const response = await fetch(PIZZA_URL + '/' + pizzaId, { method: 'DELETE' });
+    return response;
+}
+
+const deletePizza = async (pizzaId) => {
+    const response = await deletePizzaById(pizzaId);
+    if (response.ok) {
+        loadData();
+    } else {
+        console.log('ERROR');
+        console.log(response.status);
     }
 };
 
